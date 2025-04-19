@@ -1,22 +1,33 @@
 # ios_unencrypted_backup_extract_files
 Extract files from unencrypted and encrypted IOS backup
 
-**Full credits to https://github.com/jsharkey13/iphone_backup_decrypt**
+## Full credits to https://github.com/jsharkey13/iphone_backup_decrypt
 
-the script is modified to also work with unencrypted backups. Works straight from the command line which is slightly different from the above source.
-Feel free to fork and modify. Use carefully, as this may have errors - i havent stress tested this.
+the script is modified to also work with unencrypted backups. 
+Works straight from the command line which is slightly different from the above source.
+Feel free to fork and modify. **Use carefully, as this may have errors - i havent stress tested this.**
 
-**Syntax:
-**$ python3 ios_extract_files.py
+**Syntax:**
+```
+$ python3 ios_extract_files.py
+
 usage: ios_extract_files.py [-h] [-p PASSWORD] [--relpath RELPATH] [--domain DOMAIN] [--fileid FILEID] [--save-manifest SAVE_MANIFEST] [--preserve-folders]
                             [--domain-folders] [--incremental] [--test]
                             backup_dir output_dir
+                            
 ios_extract_files.py: error: the following arguments are required: backup_dir, output_dir
+```
+Note: As you can see, the command line syntax should work with passphrase encrypted backups too. Again, havent tested this part.
 
 **relpath:**
-Should work with all of the below as well as domain wildcards (not listed below, refer the source above)
- """Relative paths for commonly accessed files."""
 
+Relative paths for commonly accessed files.
+
+Should work with all of the below as well as domain wildcards (not listed below, refer the source above)
+
+Note: CALL_HISTORY will be missing in unencrypted backups.
+
+```
     # Standard iOS file locations:
     ADDRESS_BOOK = "Library/AddressBook/AddressBook.sqlitedb"
     TEXT_MESSAGES = "Library/SMS/sms.db"
@@ -32,7 +43,7 @@ Should work with all of the below as well as domain wildcards (not listed below,
     WHATSAPP_MESSAGES = "ChatStorage.sqlite"
     WHATSAPP_CONTACTS = "ContactsV2.sqlite"
 
-    """Relative path wildcards for commonly accessed groups of files."""
+    Relative path wildcards for commonly accessed groups of files.
 
     # A wildcard, use at own risk:
     ALL_FILES = "%"
@@ -50,11 +61,12 @@ Should work with all of the below as well as domain wildcards (not listed below,
     WHATSAPP_ATTACHED_VIDEOS = "Message/Media/%.mp4"
     # But allow full export if desired:
     WHATSAPP_ATTACHMENTS = "Message/Media/%.%"
+```
 
-
-**Examples: **
+**Examples:**
+```
 python3 ios_extract_files.py <backup_location> <output_location> --relpath Library/SMS/sms.db  #TEXT_MESSAGES
 python3 ios_extract_files.py <backup_location> <output_location> --relpath ChatStorage.sqlite  #WHATSAPP_MESSAGES
 python3 ios_extract_files.py <backup_location> <output_location> --relpath "Library/SMS/Attachments/%.%"  #SMS_ATTACHMENTS
-
+```
 
